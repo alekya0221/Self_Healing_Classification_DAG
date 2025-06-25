@@ -60,7 +60,7 @@ Self-Healing-Text-Classification-DAG.zip        # All files are zipped for submi
          
    NOTE: fine_tune.py : This script fine-tunes a DistilBERT model on 3 sentiment labels (positive, negative, neutral) for potential integration as the primary or fallback classifier within the DAG. Execution was not completed due to memory constraints, but the pipeline is fully  defined and ready to run with transformers, datasets, and evaluate. Same holds good for main_backupmodel.py and fallback_nodebackupmodel.py , please consider these files as conceptual/integrative but not executed.
 
-# **distilbert-base-uncased** :If facing issues with container(See **Challenges Faced** section at the end), original base model files can be downloaded from https://huggingface.co/distilbert/distilbert-base-uncased/tree/main : Download - config.json ,pytorch_model.bin, tokenizer.json, tokenizer_config.json, vocab.txt
+distilbert-base-uncased :If facing issues with container(See Challenges Faced section at the end), original base model files can be downloaded from https://huggingface.co/distilbert/distilbert-base-uncased/tree/main : Download - config.json ,pytorch_model.bin, tokenizer.json, tokenizer_config.json, vocab.txt
 
 
 Google DRIVE Link : https://drive.google.com/file/d/1YYl3sED3Jb35Lm_E9PJjEuTgrqGFgMk-/view?usp=drive_link
