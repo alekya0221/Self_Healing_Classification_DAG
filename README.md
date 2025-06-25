@@ -174,7 +174,6 @@ These typically download pretrained models or datasets from the Hugging Face Hub
 * `AutoTokenizer.from_pretrained("distilbert-base-uncased")` and
   `AutoModelForSequenceClassification.from_pretrained(...)` could not fetch files remotely.
 * `load_dataset("go_emotions")` was unusable — direct access from Hugging Face datasets library failed.
-* Multiple ZIP uploads to the container became corrupted or unreadable due to OneDrive sync issues and encoding conflicts.
 
 ---
 
