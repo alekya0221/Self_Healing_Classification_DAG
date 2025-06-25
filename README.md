@@ -36,7 +36,7 @@ Self-Healing-Text-Classification-DAG.zip        # All files are zipped for submi
     ├── main.py                     # Main CLI interface
     ├── log_viewer.py               # Utility to view structured logs
     ├── requirements.txt            # Python dependencies
-    ├── model_output/               # Fine-tuned DistilBERT model. File too Huge to Upload- Available in zip files uploaded on drive : https://drive.google.com/file/d/1YYl3sED3Jb35Lm_E9PJjEuTgrqGFgMk-/view?usp=drive_link
+    ├── model_output/               # Fine-tuned DistilBERT model. File too Huge to Upload- Available in zip files uploaded on drive ONLY: https://drive.google.com/file/d/1YYl3sED3Jb35Lm_E9PJjEuTgrqGFgMk-/view?usp=drive_link
     ├── dag_modules/
     │   ├── inference_node.py       # Inference node
     │   ├── confidence_node.py      # Confidence check logic
@@ -52,15 +52,19 @@ Self-Healing-Text-Classification-DAG.zip        # All files are zipped for submi
     │   └── fallback_nodebackupmodel.py
     ├── GoEmotions.ipynb           # Notebook containing model outputs and metrics
     ├── Self_Healing_Text_Classification_DAG.pdf  # Final presentation
-    └── DEMO_Self_Healing_Text_Classification_DAG.mp4  # Link : https://1drv.ms/v/c/f5acb3ec174cc281/EeotQwxhO6tJjlhJZxVZiE4B92WQjHJymLrnfTvs3U8Xrg
     ├── optional/                     # Experimental backup model fallback
     │   ├── main_backupmodel.py
     │   └── fallback_nodebackupmodel.py
-    │   └── fine_tune.py              # Training script (optional) 
-             
+    │   └── fine_tune.py              # Training script (optional)
+
+         
    NOTE: fine_tune.py : This script fine-tunes a DistilBERT model on 3 sentiment labels (positive, negative, neutral) for potential integration as the primary or fallback classifier within the DAG. Execution was not completed due to memory constraints, but the pipeline is fully  defined and ready to run with transformers, datasets, and evaluate. Same holds good for main_backupmodel.py and fallback_nodebackupmodel.py , please consider these files as conceptual/integrative but not executed.
 
-**distilbert-base-uncased** :If facing issues with container(See Challenges section at the end), original base model files can be downloaded from https://huggingface.co/distilbert/distilbert-base-uncased/tree/main : Download - config.json ,pytorch_model.bin, tokenizer.json, tokenizer_config.json, vocab.txt
+**distilbert-base-uncased** :If facing issues with container(See **Challenges Faced** section at the end), original base model files can be downloaded from https://huggingface.co/distilbert/distilbert-base-uncased/tree/main : Download - config.json ,pytorch_model.bin, tokenizer.json, tokenizer_config.json, vocab.txt
+
+
+Google DRIVE Link : https://drive.google.com/file/d/1YYl3sED3Jb35Lm_E9PJjEuTgrqGFgMk-/view?usp=drive_link
+Demo Link : https://1drv.ms/v/c/f5acb3ec174cc281/EeotQwxhO6tJjlhJZxVZiE4B92WQjHJymLrnfTvs3U8Xrg
 ```
 
 ---
