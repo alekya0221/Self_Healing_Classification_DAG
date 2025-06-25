@@ -37,7 +37,6 @@ Self-Healing-Text-Classification-DAG.zip        # All files are zipped for submi
     ├── log_viewer.py               # Utility to view structured logs
     ├── requirements.txt            # Python dependencies
     ├── model_output/               # Fine-tuned DistilBERT model. File too Huge to Upload- Available in zip files uploaded on drive : https://drive.google.com/file/d/1YYl3sED3Jb35Lm_E9PJjEuTgrqGFgMk-/view?usp=drive_link
-    ├── distilbert-base-uncased/    # Too Huge to upload. Original base model files can be downloaded from https://huggingface.co/distilbert/distilbert-base-uncased/tree/main : Download - config.json ,pytorch_model.bin, tokenizer.json, tokenizer_config.json, vocab.txt
     ├── dag_modules/
     │   ├── inference_node.py       # Inference node
     │   ├── confidence_node.py      # Confidence check logic
@@ -60,6 +59,8 @@ Self-Healing-Text-Classification-DAG.zip        # All files are zipped for submi
     │   └── fine_tune.py              # Training script (optional) 
              
    NOTE: fine_tune.py : This script fine-tunes a DistilBERT model on 3 sentiment labels (positive, negative, neutral) for potential integration as the primary or fallback classifier within the DAG. Execution was not completed due to memory constraints, but the pipeline is fully  defined and ready to run with transformers, datasets, and evaluate. Same holds good for main_backupmodel.py and fallback_nodebackupmodel.py , please consider these files as conceptual/integrative but not executed.
+
+**distilbert-base-uncased** :If facing issues with container(See Challenges section at the end), original base model files can be downloaded from https://huggingface.co/distilbert/distilbert-base-uncased/tree/main : Download - config.json ,pytorch_model.bin, tokenizer.json, tokenizer_config.json, vocab.txt
 ```
 
 ---
@@ -151,6 +152,110 @@ backup("I don't know", candidate_labels=["Positive", "Neutral", "Negative"])
 * [x] Optional zero-shot backup fallback
 * [x] README + 2–3 minute PDF deck + demo video
 
+
+---
+##  Challenges Faced & How I Overcame Them
+
+###  Challenge: No Internet Access Inside the Training Environment
+
+The project was executed inside **JarvisLab’s `selfhealer-env` container**, which **did not have access to the public internet**. This prevented the use of dynamic loading utilities such as:
+
+```python
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+from datasets import load_dataset
+```
+
+These typically download pretrained models or datasets from the Hugging Face Hub — but such requests failed due to the sandboxed, offline environment.
+
+---
+
+###  Challenge: Model and Dataset Access
+
+* `AutoTokenizer.from_pretrained("distilbert-base-uncased")` and
+  `AutoModelForSequenceClassification.from_pretrained(...)` could not fetch files remotely.
+* `load_dataset("go_emotions")` was unusable — direct access from Hugging Face datasets library failed.
+* Multiple ZIP uploads to the container became corrupted or unreadable due to OneDrive sync issues and encoding conflicts.
+
+---
+
+###  Workarounds and Solutions
+
+####  1. Manual Model Download & Offline Loading
+
+All required model files were manually downloaded from the [official Hugging Face DistilBERT model page](https://huggingface.co/distilbert/distilbert-base-uncased):
+
+* `config.json`
+* `pytorch_model.bin`
+* `tokenizer.json`
+* `tokenizer_config.json`
+* `vocab.txt`
+
+These were uploaded into the container under:
+
+```
+~/models/distilbert-base-uncased/
+```
+
+Then accessed using **offline local loading**:
+
+```python
+tokenizer = AutoTokenizer.from_pretrained("models/distilbert-base-uncased")
+model = AutoModelForSequenceClassification.from_pretrained("models/distilbert-base-uncased", num_labels=3)
+```
+
+---
+
+####  2. Dataset Loaded via Local CSV
+
+Instead of:
+
+```python
+from datasets import load_dataset
+```
+
+I downloaded the **GoEmotions dataset CSV manually** and loaded it using `pandas`:
+
+```python
+df = pd.read_csv("data/full_dataset/goemotions_1.csv", names=["text", "labels", "id"])
+```
+
+After label mapping:
+
+```python
+label_map = {"positive": 0, "negative": 1, "neutral": 2}
+df_balanced["label"] = df_balanced["label_text"].map(label_map)
+```
+
+It was converted to a Hugging Face dataset:
+
+```python
+from datasets import Dataset
+hf_dataset = Dataset.from_pandas(df_balanced[["text", "label"]])
+```
+
+Then tokenized locally:
+
+```python
+tokenizer = AutoTokenizer.from_pretrained("models/distilbert-base-uncased")
+
+def tokenize(example):
+    return tokenizer(example["text"], truncation=True, padding="max_length", max_length=128)
+
+hf_dataset = hf_dataset.map(tokenize, batched=True)
+hf_dataset = hf_dataset.train_test_split(test_size=0.15)
+```
+
+---
+
+###  Outcome
+
+Despite operating in a no-internet, isolated container environment:
+
+*  I successfully loaded a pretrained transformer model from local files
+*  Preprocessed and tokenized a manually downloaded GoEmotions dataset
+*  Fine-tuned the model using Hugging Face’s `Trainer` API
+*  Evaluated with accuracy and macro F1 score
+*  Saved the best model checkpoint for integration into a LangGraph-based DAG pipeline
 
 ---
 
