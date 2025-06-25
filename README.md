@@ -46,14 +46,10 @@ Self-Healing-Text-Classification-DAG.zip        # All files are zipped for submi
     │   ├── confidence_plot.png     # Visual of confidence scores
     │   ├── fallback_histogram.png  # Fallback frequency chart
     │   └── fallback_cli_histogram.py # CLI fallback frequency summary
-    ├── optional/
-    │   ├── fine_tune.py              # Training script (optional, not executed)
-    │   ├── main_backupmodel.py      # Backup model demo logic (not executed)
-    │   └── fallback_nodebackupmodel.py
     ├── GoEmotions.ipynb           # Notebook containing model outputs and metrics
     ├── Self_Healing_Text_Classification_DAG.pdf  # Final presentation
     ├── optional/                     # Experimental backup model fallback
-    │   ├── main_backupmodel.py
+    │   ├── main_backupmodel.py        # Backup model demo logic (not executed)
     │   └── fallback_nodebackupmodel.py
     │   └── fine_tune.py              # Training script (optional)
 
