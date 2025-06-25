@@ -117,13 +117,13 @@ Use `python log_viewer.py` to print a summary.
 
 ---
 
-##  Self-Healing Evidence
+##  Self-Healing
 
 * **Fallback Histogram:** Distribution of fallback labels
 * **Confidence Plot:** Variability in prediction confidence
 * **CLI Summary:** Fallback triggers + manual corrections
 
-Located in `analysis/`
+Located in `selfhealing/`
 
 ---
 
