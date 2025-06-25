@@ -36,8 +36,8 @@ Self-Healing-Text-Classification-DAG.zip        # All files are zipped for submi
     ├── main.py                     # Main CLI interface
     ├── log_viewer.py               # Utility to view structured logs
     ├── requirements.txt            # Python dependencies
-    ├── model_output/               # Fine-tuned DistilBERT model
-    ├── distilbert-base-uncased/    # Original base model files
+    ├── model_output/               # Fine-tuned DistilBERT model. File too Huge to Upload- Available in zip files uploaded on drive : https://drive.google.com/file/d/1YYl3sED3Jb35Lm_E9PJjEuTgrqGFgMk-/view?usp=drive_link
+    ├── distilbert-base-uncased/    # Too Huge to upload. Original base model files can be downloaded from https://huggingface.co/distilbert/distilbert-base-uncased/tree/main : Download - config.json ,pytorch_model.bin, tokenizer.json, tokenizer_config.json, vocab.txt
     ├── dag_modules/
     │   ├── inference_node.py       # Inference node
     │   ├── confidence_node.py      # Confidence check logic
@@ -53,7 +53,7 @@ Self-Healing-Text-Classification-DAG.zip        # All files are zipped for submi
     │   └── fallback_nodebackupmodel.py
     ├── GoEmotions.ipynb           # Notebook containing model outputs and metrics
     ├── Self_Healing_Text_Classification_DAG.pdf  # Final presentation
-    └── DEMO_Self_Healing_Text_Classification_DAG.mp4
+    └── DEMO_Self_Healing_Text_Classification_DAG.mp4  # Link : https://1drv.ms/v/c/f5acb3ec174cc281/EeotQwxhO6tJjlhJZxVZiE4B92WQjHJymLrnfTvs3U8Xrg
     ├── optional/                     # Experimental backup model fallback
     │   ├── main_backupmodel.py
     │   └── fallback_nodebackupmodel.py
