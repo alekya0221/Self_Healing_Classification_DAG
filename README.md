@@ -267,6 +267,10 @@ Despite operating in a no-internet, isolated container environment:
 
 ##  License
 
-* For assignment use only.
+Copyright [2025] [Alekya Rani Seerapu]
+
+This software/prototype is provided for assignment and educational purposes only.  
+It is not intended for commercial use, redistribution, or public deployment without explicit permission.
+
 
 ---
